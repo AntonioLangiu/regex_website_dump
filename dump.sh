@@ -15,9 +15,8 @@ if [ "${folder: -1}" != '/' ]; then
     folder="$folder/"
 fi
 
-error_file="error.log"
 list="list.txt"
-allowed_ext=pdf
+#allowed_ext=pdf
 
 regex[0]='/<pre>/,/<\/pre>/p'
 regex[1]='s@<a .*><img .* alt=\(.*\) width.*><\/a> <a .*>\(.*\)<\/a>.*@\1;\2@p'
@@ -55,10 +54,14 @@ function download_and_filter_page {
                 echo "recurring on $site$name"
                 ../$0 "$site$name" "$name"
             fi
-        else 
+        else
             ext="${name: -3}"
-            if [ "$ext" == "$allowed_ext" ]; then
-                wget -nv -A "$allowed_ext" "$wget_user_agent" "$site$name" -O "$name"
+            if [ "$allowed_ext"x == ""x ]; then
+                wget -nv "$wget_user_agent" "$site$name" -O "$name"
+            else
+                if [ "$ext" == "$allowed_ext" ]; then
+                    wget -nv -A $allowed_ext "$wget_user_agent" "$site$name" -O "$name"
+                fi
             fi
         fi
     done < "$list"
