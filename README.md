@@ -13,6 +13,6 @@ this link `example.com/invalid_link` will be invalid but the link
 `example.com/valid_file_name.pdf` will be valid.
 
 This script uses two regex to get the file and folder lists and is able
-to recurr on the whole website.
+to recur on the whole website.
 
 You should adapt the regexes to make sure they fit your specif case.
